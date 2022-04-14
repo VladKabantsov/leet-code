@@ -1,7 +1,7 @@
 const privateFetch = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log('resolve promise')
+      console.log('resolve')
       resolve(1)
     }, 100)}
   )
@@ -13,12 +13,8 @@ const loadLimitResources = (urls, callback, limit = 5) => {
   const results = []
 
   const handleRequest = (resultOfRequest) => {
-    console.log('handle')
-    console.log({ counterOfRequests })
     counterOfRequests--
-    console.log({ counterOfRequests })
     results.push(resultOfRequest)
-    console.log({ resultOfRequest, counterOfRequests })
 
     if (currentIdx === urls.length - 1) {
       return callback(results)
@@ -26,7 +22,6 @@ const loadLimitResources = (urls, callback, limit = 5) => {
   }
 
   const loadData = (url) => {
-    console.log('loadData', url)
     counterOfRequests++
 
     privateFetch(url)
@@ -41,7 +36,6 @@ const loadLimitResources = (urls, callback, limit = 5) => {
   while (currentIdx < urls.length - 1) {
     if (counterOfRequests <= limit) {
 
-      console.log({counterOfRequests, limit, currentIdx, urlLength: urls.length - 1})
       loadData(urls[currentIdx])
       currentIdx++;
     }
